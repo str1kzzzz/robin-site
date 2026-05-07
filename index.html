@@ -1,0 +1,1301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Robin Williams — Product Designer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    /* ══════════════════════════════════════
+       CSS VARIABLES (Design Tokens)
+    ══════════════════════════════════════ */
+    :root {
+      --c-base:       #000000;
+      --c-level1:     #181823;
+      --c-light-grey: #DEECF9;
+      --c-dark-grey:  #C7E0F4;
+      --c-text:       #FFFFFF;
+      --c-primary:    #5221E6;
+      --c-green:      #3CC74E;
+      --c-pink:       #E95D90;
+      --c-peach:      #FFF3E4;
+      --c-violet:     #FBE4FF;
+      --font:         'Manrope', sans-serif;
+      --pad-desktop:  0 80px;
+      --pad-tablet:   0 40px;
+      --pad-mobile:   0 24px;
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font);
+      background: var(--c-base);
+      color: var(--c-text);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    img { display: block; max-width: 100%; }
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
+    button { font-family: var(--font); cursor: pointer; border: none; background: none; }
+
+    /* ══════════════════════════════════════
+       REUSABLE UTILITIES
+    ══════════════════════════════════════ */
+    .section-label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+      margin-bottom: 20px;
+    }
+    .section-label::before {
+      content: '';
+      display: block;
+      width: 22px;
+      height: 1px;
+      background: currentColor;
+      flex-shrink: 0;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--c-primary);
+      color: #fff;
+      padding: 15px 30px;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 700;
+      transition: transform .2s, box-shadow .2s;
+      white-space: nowrap;
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 32px rgba(82,33,230,.45);
+    }
+
+    .btn-outline {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      border: 1px solid rgba(255,255,255,.28);
+      color: #fff;
+      padding: 14px 28px;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 700;
+      transition: all .2s;
+    }
+    .btn-outline:hover {
+      border-color: #fff;
+      background: rgba(255,255,255,.05);
+    }
+
+    /* placeholder blocks for images */
+    .ph {
+      background: linear-gradient(135deg, #222232 0%, #181826 100%);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 48px;
+      color: rgba(255,255,255,.08);
+      overflow: hidden;
+    }
+
+    /* ══════════════════════════════════════
+       NAVIGATION
+    ══════════════════════════════════════ */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 200;
+      padding: 0 80px;
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(24,24,35,.85);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(255,255,255,.06);
+      transition: background .3s;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      font-size: 17px;
+      font-weight: 800;
+      letter-spacing: -.01em;
+    }
+    .nav-logo-dot {
+      width: 26px; height: 26px;
+      background: var(--c-primary);
+      border-radius: 5px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 36px;
+    }
+    .nav-links a {
+      font-size: 15px;
+      font-weight: 600;
+      color: rgba(255,255,255,.55);
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: #fff; }
+    .nav-links .nav-cta {
+      background: var(--c-primary);
+      color: #fff;
+      padding: 9px 22px;
+      border-radius: 7px;
+      font-size: 15px;
+      font-weight: 700;
+    }
+    .nav-links .nav-cta:hover { color: #fff; opacity: .9; }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      padding: 6px;
+      cursor: pointer;
+    }
+    .hamburger span {
+      display: block; width: 22px; height: 2px;
+      background: #fff;
+      border-radius: 2px;
+      transition: all .3s;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 72px; left: 0; right: 0;
+      background: var(--c-level1);
+      padding: 28px 24px 32px;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      z-index: 199;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      font-size: 17px;
+      font-weight: 600;
+      color: rgba(255,255,255,.7);
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(255,255,255,.06);
+      transition: color .2s;
+    }
+    .mobile-menu a:last-child { border-bottom: none; }
+    .mobile-menu a:hover { color: #fff; }
+
+    /* ══════════════════════════════════════
+       HERO
+    ══════════════════════════════════════ */
+    .hero {
+      min-height: 100vh;
+      background: var(--c-level1);
+      padding: 72px 80px 0;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: end;
+      gap: 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -80px; right: -60px;
+      width: 520px; height: 520px;
+      background: radial-gradient(circle, rgba(82,33,230,.18) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-left {
+      padding: 100px 0 100px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      z-index: 1;
+    }
+    .hero-available {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--c-green);
+      margin-bottom: 28px;
+    }
+    .hero-available::before {
+      content: '';
+      width: 7px; height: 7px;
+      background: var(--c-green);
+      border-radius: 50%;
+    }
+
+    .hero h1 {
+      font-size: clamp(44px, 4.8vw, 72px);
+      font-weight: 800;
+      line-height: 1.08;
+      letter-spacing: -.025em;
+      margin-bottom: 28px;
+    }
+    .hero h1 em {
+      font-style: italic;
+      font-weight: 400;
+      color: rgba(255,255,255,.5);
+    }
+
+    .hero-desc {
+      font-size: 17px;
+      line-height: 1.7;
+      color: rgba(255,255,255,.5);
+      max-width: 420px;
+      margin-bottom: 44px;
+    }
+
+    .hero-right {
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      height: 100%;
+      padding-top: 72px;
+    }
+    .hero-photo {
+      width: 100%;
+      max-width: 520px;
+      height: 620px;
+      border-radius: 12px 12px 0 0;
+      background: linear-gradient(160deg, #2d2d42 0%, #181826 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 88px;
+      color: rgba(255,255,255,.07);
+      position: relative;
+    }
+    .hero-photo-badge {
+      position: absolute;
+      bottom: 32px; left: -28px;
+      background: var(--c-base);
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 10px;
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .hero-photo-badge-icon {
+      width: 38px; height: 38px;
+      background: var(--c-primary);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+    }
+    .hero-photo-badge-text strong {
+      display: block;
+      font-size: 14px;
+      font-weight: 700;
+    }
+    .hero-photo-badge-text span {
+      font-size: 12px;
+      color: rgba(255,255,255,.45);
+    }
+
+    /* ══════════════════════════════════════
+       COMPANIES
+    ══════════════════════════════════════ */
+    .companies {
+      background: var(--c-base);
+      padding: 96px 80px;
+    }
+    .companies h2 {
+      font-size: clamp(30px, 3.4vw, 50px);
+      font-weight: 800;
+      letter-spacing: -.02em;
+      margin-bottom: 56px;
+      max-width: 520px;
+    }
+    .companies-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+    }
+    .company-item {
+      padding: 36px 0;
+      border-top: 1px solid rgba(255,255,255,.08);
+      padding-right: 40px;
+    }
+    .company-item:not(:last-child) {
+      border-right: 1px solid rgba(255,255,255,.08);
+      margin-right: 40px;
+    }
+    .company-num {
+      font-size: 12px;
+      font-weight: 700;
+      color: rgba(255,255,255,.25);
+      letter-spacing: .1em;
+      margin-bottom: 18px;
+    }
+    .company-name {
+      font-size: 22px;
+      font-weight: 800;
+      margin-bottom: 6px;
+      letter-spacing: -.01em;
+    }
+    .company-role {
+      font-size: 15px;
+      font-weight: 500;
+      color: rgba(255,255,255,.45);
+    }
+
+    /* ══════════════════════════════════════
+       PHILOSOPHY
+    ══════════════════════════════════════ */
+    .philosophy {
+      background: var(--c-level1);
+      padding: 96px 80px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .philosophy h2 {
+      font-size: clamp(32px, 3.8vw, 55px);
+      font-weight: 800;
+      letter-spacing: -.02em;
+      margin-bottom: 28px;
+    }
+    .philosophy p {
+      font-size: 17px;
+      line-height: 1.75;
+      color: rgba(255,255,255,.55);
+    }
+    .philosophy p + p { margin-top: 16px; }
+    .phil-img {
+      width: 100%;
+      height: 480px;
+    }
+
+    /* ══════════════════════════════════════
+       SKILLSET
+    ══════════════════════════════════════ */
+    .skillset {
+      background: var(--c-base);
+      padding: 96px 80px;
+    }
+    .skillset h2 {
+      font-size: clamp(32px, 3.8vw, 55px);
+      font-weight: 800;
+      letter-spacing: -.02em;
+      margin-bottom: 56px;
+    }
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 40px;
+    }
+    .skill-card {
+      border-top: 1px solid rgba(255,255,255,.08);
+      padding-top: 28px;
+    }
+    .skill-card h3 {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 14px;
+      letter-spacing: -.01em;
+    }
+    .skill-card p {
+      font-size: 15px;
+      line-height: 1.65;
+      color: rgba(255,255,255,.45);
+      margin-bottom: 24px;
+    }
+    .skill-tools {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .tool-badge {
+      width: 34px; height: 34px;
+      border-radius: 7px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: 800;
+      border: 1px solid transparent;
+    }
+    .tool-fg  { background: rgba(242,97,60,.12); color: #F2613C; border-color: rgba(242,97,60,.2); }
+    .tool-ps  { background: rgba(49,168,255,.12); color: #31A8FF; border-color: rgba(49,168,255,.2); }
+    .tool-xd  { background: rgba(255,97,219,.12); color: #FF61DB; border-color: rgba(255,97,219,.2); }
+    .tool-ae  { background: rgba(159,117,255,.12); color: #9F75FF; border-color: rgba(159,117,255,.2); }
+
+    /* ══════════════════════════════════════
+       WORK
+    ══════════════════════════════════════ */
+    .work {
+      background: var(--c-level1);
+      padding: 96px 80px;
+    }
+    .work h2 {
+      font-size: clamp(32px, 3.8vw, 55px);
+      font-weight: 800;
+      letter-spacing: -.02em;
+      margin-bottom: 56px;
+      max-width: 500px;
+    }
+    .work-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 28px;
+    }
+    .work-card {
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(255,255,255,.07);
+      border-radius: 12px;
+      overflow: hidden;
+      transition: transform .28s ease, box-shadow .28s ease;
+    }
+    .work-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 24px 64px rgba(0,0,0,.5);
+    }
+    .work-card.span2 { grid-column: 1 / -1; }
+    .work-card-img {
+      width: 100%; height: 260px;
+    }
+    .work-card.span2 .work-card-img { height: 380px; }
+    .work-card-body { padding: 26px 28px; }
+    .work-card-tag {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--c-primary);
+      margin-bottom: 10px;
+    }
+    .work-card h3 {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      letter-spacing: -.01em;
+    }
+    .work-card p {
+      font-size: 15px;
+      line-height: 1.65;
+      color: rgba(255,255,255,.45);
+    }
+    .work-more {
+      text-align: center;
+      margin-top: 52px;
+    }
+
+    /* ══════════════════════════════════════
+       INSTAGRAM
+    ══════════════════════════════════════ */
+    .instagram {
+      background: var(--c-peach);
+      padding: 96px 80px;
+      color: var(--c-base);
+    }
+    .instagram .section-label {
+      color: rgba(0,0,0,.35);
+    }
+    .instagram .section-label::before { background: rgba(0,0,0,.35); }
+    .instagram h2 {
+      font-size: clamp(32px, 3.8vw, 55px);
+      font-weight: 800;
+      letter-spacing: -.02em;
+      margin-bottom: 12px;
+    }
+    .instagram-desc {
+      font-size: 17px;
+      color: rgba(0,0,0,.55);
+      margin-bottom: 44px;
+      max-width: 440px;
+    }
+    .insta-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--c-base);
+      border-bottom: 1.5px solid var(--c-base);
+      padding-bottom: 2px;
+      margin-bottom: 44px;
+      transition: opacity .2s;
+    }
+    .insta-link:hover { opacity: .6; }
+    .instagram-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+    .insta-item {
+      aspect-ratio: 1;
+      border-radius: 8px;
+      background: rgba(0,0,0,.06);
+      overflow: hidden;
+      transition: transform .25s;
+    }
+    .insta-item:hover { transform: scale(1.03); }
+    .insta-ph {
+      width: 100%; height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 36px;
+    }
+
+    /* ══════════════════════════════════════
+       DRIBBBLE
+    ══════════════════════════════════════ */
+    .dribbble {
+      background: var(--c-base);
+      padding: 96px 80px;
+    }
+    .dribbble h2 {
+      font-size: clamp(32px, 3.8vw, 55px);
+      font-weight: 800;
+      letter-spacing: -.02em;
+      margin-bottom: 12px;
+    }
+    .dribbble-desc {
+      font-size: 17px;
+      color: rgba(255,255,255,.45);
+      margin-bottom: 52px;
+    }
+    .dribbble-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .drib-item {
+      aspect-ratio: 4/3;
+      border-radius: 10px;
+      background: var(--c-level1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 42px;
+      color: rgba(255,255,255,.08);
+      overflow: hidden;
+      transition: transform .25s;
+    }
+    .drib-item:hover { transform: scale(1.025); }
+
+    /* ══════════════════════════════════════
+       TESTIMONIALS
+    ══════════════════════════════════════ */
+    .testimonials {
+      background: var(--c-level1);
+      padding: 96px 80px;
+    }
+    .testimonials h2 {
+      font-size: clamp(32px, 3.8vw, 55px);
+      font-weight: 800;
+      letter-spacing: -.02em;
+      margin-bottom: 60px;
+      max-width: 500px;
+    }
+    .testimonials-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 72px;
+      align-items: start;
+    }
+    .testimonial-list {
+      display: flex;
+      flex-direction: column;
+      gap: 44px;
+    }
+    .testimonial {
+      border-left: 2px solid var(--c-primary);
+      padding-left: 24px;
+    }
+    .testimonial-text {
+      font-size: 16px;
+      line-height: 1.75;
+      color: rgba(255,255,255,.75);
+      font-style: italic;
+      margin-bottom: 18px;
+    }
+    .testimonial-author {
+      font-size: 13px;
+      font-weight: 700;
+      color: rgba(255,255,255,.35);
+    }
+    .testimonial-author strong { color: rgba(255,255,255,.75); }
+    .testi-img { width: 100%; height: 520px; }
+
+    /* ══════════════════════════════════════
+       PHOTOGRAPHY
+    ══════════════════════════════════════ */
+    .photography {
+      background: var(--c-base);
+      padding: 96px 80px;
+    }
+    .photography h2 {
+      font-size: clamp(32px, 3.8vw, 55px);
+      font-weight: 800;
+      letter-spacing: -.02em;
+      margin-bottom: 12px;
+    }
+    .photography-desc {
+      font-size: 17px;
+      color: rgba(255,255,255,.45);
+      margin-bottom: 32px;
+    }
+    .photo-tabs {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 44px;
+      flex-wrap: wrap;
+    }
+    .photo-tab {
+      padding: 9px 18px;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 700;
+      color: rgba(255,255,255,.4);
+      transition: all .2s;
+    }
+    .photo-tab.active {
+      background: var(--c-primary);
+      color: #fff;
+    }
+    .photo-tab:hover:not(.active) {
+      background: rgba(255,255,255,.06);
+      color: #fff;
+    }
+    .photo-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: auto auto;
+      gap: 14px;
+    }
+    .photo-cell {
+      border-radius: 8px;
+      overflow: hidden;
+      background: var(--c-level1);
+    }
+    .photo-cell .ph { border-radius: 0; }
+    .photo-cell:nth-child(1) .ph { height: 220px; }
+    .photo-cell:nth-child(2) .ph { height: 340px; }
+    .photo-cell:nth-child(3) .ph { height: 220px; }
+    .photo-cell:nth-child(4) .ph { height: 340px; }
+    .photo-cell:nth-child(5) .ph { height: 220px; }
+    .photo-cell:nth-child(6) .ph { height: 220px; }
+
+    /* ══════════════════════════════════════
+       CTA
+    ══════════════════════════════════════ */
+    .cta {
+      background: var(--c-level1);
+      padding: 96px 80px;
+    }
+    .cta h2 {
+      font-size: clamp(32px, 3.8vw, 55px);
+      font-weight: 800;
+      letter-spacing: -.02em;
+      margin-bottom: 16px;
+    }
+    .cta-desc {
+      font-size: 17px;
+      color: rgba(255,255,255,.5);
+      margin-bottom: 44px;
+      max-width: 480px;
+    }
+    .cta-form {
+      display: flex;
+      gap: 14px;
+      max-width: 520px;
+    }
+    .cta-input {
+      flex: 1;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 8px;
+      padding: 15px 18px;
+      font-size: 15px;
+      font-family: var(--font);
+      color: #fff;
+      outline: none;
+      transition: border-color .2s;
+    }
+    .cta-input::placeholder { color: rgba(255,255,255,.28); }
+    .cta-input:focus { border-color: var(--c-primary); }
+
+    /* ══════════════════════════════════════
+       FOOTER
+    ══════════════════════════════════════ */
+    footer {
+      background: var(--c-base);
+      padding: 48px 80px;
+      border-top: 1px solid rgba(255,255,255,.07);
+    }
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      font-size: 16px;
+      font-weight: 800;
+    }
+    .footer-nav {
+      display: flex;
+      gap: 28px;
+    }
+    .footer-nav a {
+      font-size: 14px;
+      font-weight: 600;
+      color: rgba(255,255,255,.38);
+      transition: color .2s;
+    }
+    .footer-nav a:hover { color: #fff; }
+    .footer-copy {
+      font-size: 13px;
+      color: rgba(255,255,255,.25);
+    }
+
+    /* ══════════════════════════════════════
+       TABLET  ≤ 1024px  (768px breakpoint)
+    ══════════════════════════════════════ */
+    @media (max-width: 1024px) {
+      .nav { padding: 0 40px; }
+
+      /* Hero */
+      .hero {
+        grid-template-columns: 1fr;
+        padding: 72px 40px 0;
+        min-height: auto;
+        gap: 0;
+      }
+      .hero-left {
+        padding: 72px 0 56px;
+        max-width: 680px;
+      }
+      .hero h1 { font-size: clamp(38px, 5.5vw, 56px); }
+      .hero-right {
+        justify-content: flex-start;
+      }
+      .hero-photo {
+        max-width: 100%;
+        height: 420px;
+        border-radius: 12px 12px 0 0;
+      }
+      .hero-photo-badge { left: 20px; bottom: 20px; }
+
+      /* Companies */
+      .companies { padding: 72px 40px; }
+      .companies-grid { grid-template-columns: 1fr; gap: 0; }
+      .company-item:not(:last-child) {
+        border-right: none;
+        border-bottom: 1px solid rgba(255,255,255,.08);
+        margin-right: 0;
+        padding-right: 0;
+        padding-bottom: 28px;
+        margin-bottom: 28px;
+        padding-top: 28px;
+      }
+
+      /* Philosophy */
+      .philosophy {
+        grid-template-columns: 1fr;
+        padding: 72px 40px;
+        gap: 48px;
+      }
+      .phil-img { height: 360px; }
+
+      /* Skillset */
+      .skillset { padding: 72px 40px; }
+      .skills-grid { grid-template-columns: repeat(2, 1fr); gap: 28px; }
+
+      /* Work */
+      .work { padding: 72px 40px; }
+      .work-grid { grid-template-columns: 1fr; }
+      .work-card.span2 { grid-column: auto; }
+      .work-card.span2 .work-card-img { height: 280px; }
+
+      /* Instagram */
+      .instagram { padding: 72px 40px; }
+      .instagram-grid { grid-template-columns: repeat(2, 1fr); }
+
+      /* Dribbble */
+      .dribbble { padding: 72px 40px; }
+      .dribbble-grid { grid-template-columns: repeat(2, 1fr); }
+
+      /* Testimonials */
+      .testimonials { padding: 72px 40px; }
+      .testimonials-inner { grid-template-columns: 1fr; gap: 48px; }
+      .testi-img { height: 320px; }
+
+      /* Photography */
+      .photography { padding: 72px 40px; }
+      .photo-grid { grid-template-columns: repeat(2, 1fr); }
+      .photo-cell:nth-child(n) .ph { height: 200px; }
+
+      /* CTA */
+      .cta { padding: 72px 40px; }
+
+      /* Footer */
+      footer { padding: 40px 40px; }
+      .footer-inner { flex-wrap: wrap; gap: 20px; }
+      .footer-copy { flex-basis: 100%; order: 3; }
+    }
+
+    /* ══════════════════════════════════════
+       MOBILE  ≤ 600px  (360px breakpoint)
+    ══════════════════════════════════════ */
+    @media (max-width: 600px) {
+      .nav { padding: 0 24px; height: 64px; }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+
+      /* Hero */
+      .hero { padding: 64px 24px 0; }
+      .hero-left { padding: 56px 0 44px; }
+      .hero h1 { font-size: 34px; }
+      .hero-desc { font-size: 16px; }
+      .hero-photo { height: 320px; }
+      .hero-photo-badge { display: none; }
+
+      /* Companies */
+      .companies { padding: 60px 24px; }
+      .companies h2 { font-size: 28px; }
+      .companies-grid { grid-template-columns: 1fr; }
+
+      /* Philosophy */
+      .philosophy { padding: 60px 24px; }
+      .phil-img { height: 260px; }
+
+      /* Skillset */
+      .skillset { padding: 60px 24px; }
+      .skills-grid { grid-template-columns: 1fr; gap: 24px; }
+
+      /* Work */
+      .work { padding: 60px 24px; }
+      .work-grid { grid-template-columns: 1fr; gap: 20px; }
+      .work-card-img { height: 200px; }
+
+      /* Instagram */
+      .instagram { padding: 60px 24px; }
+      .instagram-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+      }
+
+      /* Dribbble */
+      .dribbble { padding: 60px 24px; }
+      .dribbble-grid { grid-template-columns: 1fr; gap: 14px; }
+
+      /* Testimonials */
+      .testimonials { padding: 60px 24px; }
+      .testimonials-inner { grid-template-columns: 1fr; }
+      .testi-img { display: none; }
+
+      /* Photography */
+      .photography { padding: 60px 24px; }
+      .photo-grid { grid-template-columns: 1fr; gap: 10px; }
+      .photo-cell:nth-child(n) .ph { height: 200px; }
+
+      /* CTA */
+      .cta { padding: 60px 24px; }
+      .cta-form { flex-direction: column; }
+
+      /* Footer */
+      footer { padding: 36px 24px; }
+      .footer-inner { flex-direction: column; align-items: flex-start; gap: 20px; }
+      .footer-nav { flex-wrap: wrap; gap: 16px; }
+    }
+
+    /* ══════════════════════════════════════
+       ANIMATIONS
+    ══════════════════════════════════════ */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .hero-available { animation: fadeUp .5s ease both; }
+    .hero h1        { animation: fadeUp .5s .12s ease both; }
+    .hero-desc      { animation: fadeUp .5s .22s ease both; }
+    .hero-left .btn-primary { animation: fadeUp .5s .32s ease both; }
+  </style>
+</head>
+<body>
+
+  <!-- ══════════ NAVIGATION ══════════ -->
+  <header class="nav" id="navbar">
+    <a href="#" class="nav-logo">
+      <div class="nav-logo-dot"></div>
+      Robin W
+    </a>
+    <ul class="nav-links">
+      <li><a href="#work">Portfolio</a></li>
+      <li><a href="#philosophy">About</a></li>
+      <li><a href="#photography">Photography</a></li>
+      <li><a href="#cta" class="nav-cta">Get in touch</a></li>
+    </ul>
+    <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </div>
+  </header>
+
+  <!-- Mobile menu -->
+  <nav class="mobile-menu" id="mobileMenu">
+    <a href="#work"        onclick="closeMobile()">Portfolio</a>
+    <a href="#philosophy"  onclick="closeMobile()">About</a>
+    <a href="#photography" onclick="closeMobile()">Photography</a>
+    <a href="#cta"         onclick="closeMobile()">Get in touch →</a>
+  </nav>
+
+  <!-- ══════════ HERO ══════════ -->
+  <section class="hero">
+    <div class="hero-left">
+      <span class="hero-available">Available for freelance</span>
+      <h1>I'm Robin Williams. <em>A Product Designer</em> based in Italy.</h1>
+      <p class="hero-desc">I craft digital experiences that blend purpose with beauty — 8+ years designing products people genuinely love to use.</p>
+      <a href="#work" class="btn-primary">View my work &rarr;</a>
+    </div>
+    <div class="hero-right">
+      <div class="hero-photo">
+        👤
+        <div class="hero-photo-badge">
+          <div class="hero-photo-badge-icon">🎨</div>
+          <div class="hero-photo-badge-text">
+            <strong>8+ Years</strong>
+            <span>Product Design</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ COMPANIES ══════════ -->
+  <section class="companies">
+    <div class="section-label">Experience</div>
+    <h2>Companies I have worked for in the past</h2>
+    <div class="companies-grid">
+      <div class="company-item">
+        <div class="company-num">01</div>
+        <div class="company-name">Google</div>
+        <div class="company-role">Interaction Designer</div>
+      </div>
+      <div class="company-item">
+        <div class="company-num">02</div>
+        <div class="company-name">Freelance</div>
+        <div class="company-role">Product Designer</div>
+      </div>
+      <div class="company-item">
+        <div class="company-num">03</div>
+        <div class="company-name">Dribbble</div>
+        <div class="company-role">Graphic Designer</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ PHILOSOPHY ══════════ -->
+  <section class="philosophy" id="philosophy">
+    <div>
+      <div class="section-label">About me</div>
+      <h2>Philosophy &amp; values</h2>
+      <p>Design is never just about aesthetics — it's about solving real problems for real people. I believe in building products that feel intuitive, inclusive, and honest.</p>
+      <p style="margin-top:16px">My process starts with deep research and genuine empathy, followed by rapid iteration and relentless attention to detail — until the product feels inevitable.</p>
+    </div>
+    <div class="phil-img ph">🌿</div>
+  </section>
+
+  <!-- ══════════ SKILLSET ══════════ -->
+  <section class="skillset">
+    <div class="section-label">Skills</div>
+    <h2>Skillset</h2>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <h3>Product Design</h3>
+        <p>End-to-end UX/UI — from user research and wireframes to polished high-fidelity prototypes.</p>
+        <div class="skill-tools">
+          <div class="tool-badge tool-fg">Fg</div>
+          <div class="tool-badge tool-xd">XD</div>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h3>Visual Design</h3>
+        <p>Brand identity, typography systems, and illustration that communicate with clarity and character.</p>
+        <div class="skill-tools">
+          <div class="tool-badge tool-ps">Ps</div>
+          <div class="tool-badge tool-fg">Fg</div>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h3>Motion Design</h3>
+        <p>Micro-interactions and animations that guide attention and make interfaces feel alive.</p>
+        <div class="skill-tools">
+          <div class="tool-badge tool-ae">Ae</div>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h3>Photography</h3>
+        <p>Architectural and lifestyle photography with a clean, editorial eye.</p>
+        <div class="skill-tools">
+          <div class="tool-badge tool-ps">Ps</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ WORK ══════════ -->
+  <section class="work" id="work">
+    <div class="section-label">Portfolio</div>
+    <h2>Work that I've done for the past 8 years</h2>
+    <div class="work-grid">
+      <div class="work-card span2">
+        <div class="work-card-img ph">🍽️</div>
+        <div class="work-card-body">
+          <div class="work-card-tag">Website Design</div>
+          <h3>Restaurant Website Design</h3>
+          <p>A complete redesign of a restaurant chain's digital presence — simplifying online ordering and reservation flows while elevating the brand experience.</p>
+        </div>
+      </div>
+      <div class="work-card">
+        <div class="work-card-img ph">📱</div>
+        <div class="work-card-body">
+          <div class="work-card-tag">Mobile App</div>
+          <h3>Restaurant Mobile App</h3>
+          <p>Native iOS app for seamless bookings and a loyalty program that keeps guests coming back.</p>
+        </div>
+      </div>
+      <div class="work-card">
+        <div class="work-card-img ph">🎨</div>
+        <div class="work-card-body">
+          <div class="work-card-tag">Branding</div>
+          <h3>Restaurant Brand Identity</h3>
+          <p>Full visual identity — logo, type system, colour palette, brand guidelines and print collateral.</p>
+        </div>
+      </div>
+      <div class="work-card">
+        <div class="work-card-img ph">💼</div>
+        <div class="work-card-body">
+          <div class="work-card-tag">Product Design</div>
+          <h3>Restaurant Dashboard</h3>
+          <p>Redesigning the management dashboard for better operational clarity and daily efficiency.</p>
+        </div>
+      </div>
+      <div class="work-card">
+        <div class="work-card-img ph">🌐</div>
+        <div class="work-card-body">
+          <div class="work-card-tag">Website Design</div>
+          <h3>Restaurant Website Design</h3>
+          <p>A bespoke landing page concept built to highlight seasonal menus and drive reservations.</p>
+        </div>
+      </div>
+    </div>
+    <div class="work-more">
+      <a href="#" class="btn-outline">View all projects &rarr;</a>
+    </div>
+  </section>
+
+  <!-- ══════════ INSTAGRAM ══════════ -->
+  <section class="instagram">
+    <div class="section-label">Social</div>
+    <h2>Instagram</h2>
+    <p class="instagram-desc">A peek into my daily design life, travels, and creative process.</p>
+    <a href="#" class="insta-link">Follow @robinwdesign &rarr;</a>
+    <div class="instagram-grid">
+      <div class="insta-item"><div class="insta-ph">✈️</div></div>
+      <div class="insta-item"><div class="insta-ph">🏛️</div></div>
+      <div class="insta-item"><div class="insta-ph">☕</div></div>
+      <div class="insta-item"><div class="insta-ph">🌊</div></div>
+    </div>
+  </section>
+
+  <!-- ══════════ DRIBBBLE ══════════ -->
+  <section class="dribbble">
+    <div class="section-label">Social</div>
+    <h2>Dribbble</h2>
+    <p class="dribbble-desc">Design shots, experiments, and work-in-progress exploration.</p>
+    <div class="dribbble-grid">
+      <div class="drib-item">🖌️</div>
+      <div class="drib-item">📐</div>
+      <div class="drib-item">🎯</div>
+    </div>
+  </section>
+
+  <!-- ══════════ TESTIMONIALS ══════════ -->
+  <section class="testimonials">
+    <div class="section-label">Social proof</div>
+    <h2>This is what people say about me</h2>
+    <div class="testimonials-inner">
+      <div class="testimonial-list">
+        <div class="testimonial">
+          <p class="testimonial-text">"Robin is one of the best designers I have ever worked with. She has a rare gift for making complex interfaces feel effortless and beautiful."</p>
+          <div class="testimonial-author"><strong>Marco Bianchi</strong> — Creative Director, Studio Milan</div>
+        </div>
+        <div class="testimonial">
+          <p class="testimonial-text">"I think Robin has an incredible gift. Producing exceptional work with a genuine smile, every single day — that's something truly rare."</p>
+          <div class="testimonial-author"><strong>Sarah Chen</strong> — VP Product, TechCorp</div>
+        </div>
+        <div class="testimonial">
+          <p class="testimonial-text">"Robin is a phenomenal designer. Her attention to craft and attention to the smallest detail never ceases to amaze everyone around her."</p>
+          <div class="testimonial-author"><strong>Luca Romano</strong> — Founder, Digital Agency Roma</div>
+        </div>
+      </div>
+      <div class="testi-img ph">👥</div>
+    </div>
+  </section>
+
+  <!-- ══════════ PHOTOGRAPHY ══════════ -->
+  <section class="photography" id="photography">
+    <div class="section-label">Creative</div>
+    <h2>Photography</h2>
+    <p class="photography-desc">Beyond design, I capture places, light, and quiet moments.</p>
+    <div class="photo-tabs">
+      <button class="photo-tab active" onclick="setTab(this)">All</button>
+      <button class="photo-tab" onclick="setTab(this)">Travel</button>
+      <button class="photo-tab" onclick="setTab(this)">Architecture</button>
+      <button class="photo-tab" onclick="setTab(this)">Street</button>
+    </div>
+    <div class="photo-grid">
+      <div class="photo-cell"><div class="ph">🏙️</div></div>
+      <div class="photo-cell"><div class="ph">🌄</div></div>
+      <div class="photo-cell"><div class="ph">🏛️</div></div>
+      <div class="photo-cell"><div class="ph">✈️</div></div>
+      <div class="photo-cell"><div class="ph">🌊</div></div>
+      <div class="photo-cell"><div class="ph">🌿</div></div>
+    </div>
+  </section>
+
+  <!-- ══════════ CTA ══════════ -->
+  <section class="cta" id="cta">
+    <div class="section-label">Contact</div>
+    <h2>Let's get started</h2>
+    <p class="cta-desc">Have a project in mind? Drop your email and I'll get back to you within 24 hours.</p>
+    <div class="cta-form">
+      <input type="email" class="cta-input" placeholder="your@email.com">
+      <button class="btn-primary" onclick="handleCta()">Get in touch &rarr;</button>
+    </div>
+  </section>
+
+  <!-- ══════════ FOOTER ══════════ -->
+  <footer>
+    <div class="footer-inner">
+      <a href="#" class="footer-logo">
+        <div class="nav-logo-dot" style="width:22px;height:22px;border-radius:4px;"></div>
+        Robin W
+      </a>
+      <nav class="footer-nav">
+        <a href="#work">Portfolio</a>
+        <a href="#philosophy">About</a>
+        <a href="#photography">Photography</a>
+        <a href="#">Instagram</a>
+        <a href="#">Dribbble</a>
+      </nav>
+      <div class="footer-copy">&copy; 2024 Robin Williams. All rights reserved.</div>
+    </div>
+  </footer>
+
+  <script>
+    // ── Mobile menu ──────────────────────
+    function toggleMenu() {
+      const menu = document.getElementById('mobileMenu');
+      const btn  = document.getElementById('hamburger');
+      menu.classList.toggle('open');
+      btn.classList.toggle('open');
+    }
+    function closeMobile() {
+      document.getElementById('mobileMenu').classList.remove('open');
+      document.getElementById('hamburger').classList.remove('open');
+    }
+
+    // ── Photography tabs ─────────────────
+    function setTab(el) {
+      document.querySelectorAll('.photo-tab').forEach(t => t.classList.remove('active'));
+      el.classList.add('active');
+    }
+
+    // ── CTA ──────────────────────────────
+    function handleCta() {
+      const input = document.querySelector('.cta-input');
+      if (input.value && input.value.includes('@')) {
+        const btn = document.querySelector('.cta .btn-primary');
+        btn.textContent = 'Sent! ✓';
+        btn.style.background = '#3CC74E';
+        input.value = '';
+        setTimeout(() => {
+          btn.textContent = 'Get in touch →';
+          btn.style.background = '';
+        }, 3000);
+      } else {
+        input.style.borderColor = '#E95D90';
+        input.focus();
+        setTimeout(() => { input.style.borderColor = ''; }, 1500);
+      }
+    }
+
+    // ── Scroll-reveal (IntersectionObserver) ─
+    const revealStyle = document.createElement('style');
+    revealStyle.textContent = `
+      .reveal { opacity: 0; transform: translateY(20px); transition: opacity .55s ease, transform .55s ease; }
+      .reveal.visible { opacity: 1; transform: translateY(0); }
+    `;
+    document.head.appendChild(revealStyle);
+
+    const revealTargets = [
+      '.company-item', '.skill-card', '.work-card',
+      '.insta-item', '.drib-item', '.testimonial',
+      '.photo-cell', '.philosophy > div', '.phil-img'
+    ];
+    revealTargets.forEach(sel => {
+      document.querySelectorAll(sel).forEach((el, i) => {
+        el.classList.add('reveal');
+        el.style.transitionDelay = `${i * 0.07}s`;
+      });
+    });
+
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  </script>
+</body>
+</html>
