@@ -944,6 +944,38 @@
       .footer-nav { flex-wrap: wrap; gap: 16px; }
     }
 
+
+
+    /* ══════════════════════════════════════
+       IMAGE FILES FROM /images FOLDER
+    ══════════════════════════════════════ */
+    .hero-photo img,
+    .phil-img img,
+    .work-card-img img,
+    .insta-item img,
+    .drib-item img,
+    .testi-img img,
+    .photo-cell img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .hero-photo {
+      overflow: hidden;
+    }
+
+    .phil-img,
+    .testi-img {
+      overflow: hidden;
+      border-radius: 10px;
+    }
+
+    .photo-cell img {
+      border-radius: 8px;
+    }
+
     /* ══════════════════════════════════════
        ANIMATIONS
     ══════════════════════════════════════ */
@@ -994,7 +1026,7 @@
     </div>
     <div class="hero-right">
       <div class="hero-photo">
-        👤
+        <img src="images/hero.jpg" alt="Главное фото Robin Williams">
         <div class="hero-photo-badge">
           <div class="hero-photo-badge-icon">🎨</div>
           <div class="hero-photo-badge-text">
@@ -1037,7 +1069,9 @@
       <p>Design is never just about aesthetics — it's about solving real problems for real people. I believe in building products that feel intuitive, inclusive, and honest.</p>
       <p style="margin-top:16px">My process starts with deep research and genuine empathy, followed by rapid iteration and relentless attention to detail — until the product feels inevitable.</p>
     </div>
-    <div class="phil-img ph">🌿</div>
+    <div class="phil-img ph">
+      <img src="images/about.jpg" alt="Фото о дизайнере">
+    </div>
   </section>
 
   <!-- ══════════ SKILLSET ══════════ -->
@@ -1084,7 +1118,9 @@
     <h2>Work that I've done for the past 8 years</h2>
     <div class="work-grid">
       <div class="work-card span2">
-        <div class="work-card-img ph">🍽️</div>
+        <div class="work-card-img ph">
+          <img src="images/work1.jpg" alt="Restaurant Website Design">
+        </div>
         <div class="work-card-body">
           <div class="work-card-tag">Website Design</div>
           <h3>Restaurant Website Design</h3>
@@ -1092,7 +1128,9 @@
         </div>
       </div>
       <div class="work-card">
-        <div class="work-card-img ph">📱</div>
+        <div class="work-card-img ph">
+          <img src="images/work2.jpg" alt="Restaurant Mobile App">
+        </div>
         <div class="work-card-body">
           <div class="work-card-tag">Mobile App</div>
           <h3>Restaurant Mobile App</h3>
@@ -1100,7 +1138,9 @@
         </div>
       </div>
       <div class="work-card">
-        <div class="work-card-img ph">🎨</div>
+        <div class="work-card-img ph">
+          <img src="images/work3.jpg" alt="Restaurant Brand Identity">
+        </div>
         <div class="work-card-body">
           <div class="work-card-tag">Branding</div>
           <h3>Restaurant Brand Identity</h3>
@@ -1108,7 +1148,9 @@
         </div>
       </div>
       <div class="work-card">
-        <div class="work-card-img ph">💼</div>
+        <div class="work-card-img ph">
+          <img src="images/work4.jpg" alt="Restaurant Dashboard">
+        </div>
         <div class="work-card-body">
           <div class="work-card-tag">Product Design</div>
           <h3>Restaurant Dashboard</h3>
@@ -1116,7 +1158,9 @@
         </div>
       </div>
       <div class="work-card">
-        <div class="work-card-img ph">🌐</div>
+        <div class="work-card-img ph">
+          <img src="images/work5.jpg" alt="Restaurant Landing Page">
+        </div>
         <div class="work-card-body">
           <div class="work-card-tag">Website Design</div>
           <h3>Restaurant Website Design</h3>
@@ -1136,10 +1180,10 @@
     <p class="instagram-desc">A peek into my daily design life, travels, and creative process.</p>
     <a href="#" class="insta-link">Follow @robinwdesign &rarr;</a>
     <div class="instagram-grid">
-      <div class="insta-item"><div class="insta-ph">✈️</div></div>
-      <div class="insta-item"><div class="insta-ph">🏛️</div></div>
-      <div class="insta-item"><div class="insta-ph">☕</div></div>
-      <div class="insta-item"><div class="insta-ph">🌊</div></div>
+      <div class="insta-item"><img src="images/instagram1.jpg" alt="Instagram photo 1"></div>
+      <div class="insta-item"><img src="images/instagram2.jpg" alt="Instagram photo 2"></div>
+      <div class="insta-item"><img src="images/instagram3.jpg" alt="Instagram photo 3"></div>
+      <div class="insta-item"><img src="images/instagram4.jpg" alt="Instagram photo 4"></div>
     </div>
   </section>
 
@@ -1149,9 +1193,9 @@
     <h2>Dribbble</h2>
     <p class="dribbble-desc">Design shots, experiments, and work-in-progress exploration.</p>
     <div class="dribbble-grid">
-      <div class="drib-item">🖌️</div>
-      <div class="drib-item">📐</div>
-      <div class="drib-item">🎯</div>
+      <div class="drib-item"><img src="images/dribbble1.jpg" alt="Dribbble work 1"></div>
+      <div class="drib-item"><img src="images/dribbble2.jpg" alt="Dribbble work 2"></div>
+      <div class="drib-item"><img src="images/dribbble3.jpg" alt="Dribbble work 3"></div>
     </div>
   </section>
 
@@ -1174,7 +1218,9 @@
           <div class="testimonial-author"><strong>Luca Romano</strong> — Founder, Digital Agency Roma</div>
         </div>
       </div>
-      <div class="testi-img ph">👥</div>
+      <div class="testi-img ph">
+        <img src="images/testimonials.jpg" alt="Отзывы клиентов">
+      </div>
     </div>
   </section>
 
@@ -1190,12 +1236,12 @@
       <button class="photo-tab" onclick="setTab(this)">Street</button>
     </div>
     <div class="photo-grid">
-      <div class="photo-cell"><div class="ph">🏙️</div></div>
-      <div class="photo-cell"><div class="ph">🌄</div></div>
-      <div class="photo-cell"><div class="ph">🏛️</div></div>
-      <div class="photo-cell"><div class="ph">✈️</div></div>
-      <div class="photo-cell"><div class="ph">🌊</div></div>
-      <div class="photo-cell"><div class="ph">🌿</div></div>
+      <div class="photo-cell"><img src="images/photo1.jpg" alt="Photography 1"></div>
+      <div class="photo-cell"><img src="images/photo2.jpg" alt="Photography 2"></div>
+      <div class="photo-cell"><img src="images/photo3.jpg" alt="Photography 3"></div>
+      <div class="photo-cell"><img src="images/photo4.jpg" alt="Photography 4"></div>
+      <div class="photo-cell"><img src="images/photo5.jpg" alt="Photography 5"></div>
+      <div class="photo-cell"><img src="images/photo6.jpg" alt="Photography 6"></div>
     </div>
   </section>
 
